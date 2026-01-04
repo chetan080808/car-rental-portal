@@ -376,13 +376,13 @@ Open a Pull Request
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 👨‍💻 Author
-Chetan Pawar
+Chetan Namane
 
 GitHub: @chetan080808
 
 Docker Hub: chetan0808
 
-LinkedIn: Your LinkedIn
+LinkedIn: https://www.linkedin.com/in/chetan-namane/
 
 🙏 Acknowledgments
 Bootstrap for responsive design
@@ -402,7 +402,7 @@ Check Troubleshooting section
 
 Open an Issue
 
-Contact: your.email@example.com
+Contact: chetannamne2609@gmail.com
 
 🗺️ Roadmap
  Add payment gateway integration
