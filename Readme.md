@@ -1,214 +1,424 @@
-# 🚗 Car Rental Portal – PHP & MySQL (with Docker & Docker Hub Image)
+# 🚗 Car Rental Portal - PHP & MySQL
 
-A complete car rental management system built with PHP, MySQL, and Docker. This single README explains:
+A complete car rental management system built with PHP, MySQL, and Docker. Features user registration, vehicle booking, admin panel, and payment tracking.
 
-- How to run the **main project** (build/run with Docker from source)
-- How to run the project using the **prebuilt Docker image from Docker Hub** (for easy sharing with non‑technical users)
-
-GitHub removed password authentication for Git operations; use access tokens or SSH when pushing this project. [web:68][web:69]
-
----
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Docker](https://img.shields.io/badge/docker-ready-brightgreen.svg)
+![PHP](https://img.shields.io/badge/PHP-8.2-purple.svg)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-orange.svg)
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
 - [Features](#features)
-- [Tech Stack](#tech-stack)
+- [Technology Stack](#technology-stack)
 - [Prerequisites](#prerequisites)
-- [Option 1 – Run From Source with Docker](#option-1--run-from-source-with-docker)
-  - [Clone Repository](#clone-repository)
-  - [Project Structure](#project-structure)
-  - [Start Containers](#start-containers)
-  - [Application URLs](#application-urls)
-  - [Default Credentials](#default-credentials)
-  - [Useful Docker Commands](#useful-docker-commands)
-- [Option 2 – Run Using Prebuilt Docker Image (Docker Hub)](#option-2--run-using-prebuilt-docker-image-docker-hub)
-  - [Folder Contents for Sharing](#folder-contents-for-sharing)
-  - [Quick Start (for your friend/college demo)](#quick-start-for-your-friendcollege-demo)
-- [Ports & Configuration](#ports--configuration)
+- [Installation & Setup](#installation--setup)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
-- [For College / Presentation Talking Points](#for-college--presentation-talking-points)
-- [Author](#author)
-
----
-
-## 🧾 Overview
-
-This system simulates a real‑world car rental portal:
-
-- **User side** – browse cars, make bookings, manage profile, submit testimonials.
-- **Admin side** – manage vehicles, brands, bookings, users, CMS pages, and contact queries.
-- **Database** – MySQL schema with sample data (`carrental.sql`).
-- **Deployment** – Docker and Docker Compose for reproducible local or cloud environments. [web:52][web:53]
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
 ## ✨ Features
 
-**User portal:**
+### User Features
+- 🔐 User registration and authentication
+- 🚙 Browse available vehicles with filters
+- 📅 Book vehicles with date selection
+- 📝 Manage bookings (view, cancel)
+- 💬 Submit testimonials
+- 📱 Contact form
+- 👤 Profile management
+- 🔒 Password reset functionality
 
-- Registration, login, logout  
-- Browse available vehicles with details and images  
-- Book cars for selected dates  
-- View booking history  
-- Submit testimonials  
-- Use contact form to send enquiries  
-- Update profile and change password  
-
-**Admin panel:**
-
-- Admin authentication  
-- Dashboard with booking and vehicle summaries  
-- Vehicle management (add/edit/delete vehicles)  
-- Brand management  
-- Booking approval / rejection  
-- User management  
-- Testimonial moderation  
-- Static pages management (About, FAQs, etc.)  
-- View and respond to contact queries  
+### Admin Features
+- 📊 Dashboard with statistics
+- 🚗 Vehicle management (CRUD operations)
+- 📦 Brand management
+- 📋 Booking management (approve/reject)
+- 👥 User management
+- 💬 Testimonial moderation
+- 📧 Contact query management
+- 📄 Page content management
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Technology Stack
 
-- **Backend:** PHP 8.x  
-- **Frontend:** HTML5, CSS3, Bootstrap, JavaScript  
-- **Database:** MySQL 8.x  
-- **Web server:** Apache 2.4  
-- **Containerization:** Docker & Docker Compose (multi‑container stack) [web:52]  
+| Component | Technology | Version |
+|-----------|-----------|---------|
+| **Backend** | PHP | 8.2 |
+| **Database** | MySQL | 8.0 |
+| **Web Server** | Apache | 2.4 |
+| **Frontend** | HTML5, CSS3, JavaScript | - |
+| **Framework** | Bootstrap | 4.x |
+| **Containerization** | Docker & Docker Compose | Latest |
+| **Database Driver** | PDO (PHP Data Objects) | - |
 
 ---
 
 ## 📦 Prerequisites
 
-You need the following on the machine where you run the project:
+Before you begin, ensure you have the following installed:
 
-- **Git** (if cloning from GitHub)
-- **Docker** (Engine / Docker Desktop)  
-- **Docker Compose** (v2+; bundled with recent Docker Desktop)  
-- At least **4 GB RAM** and **5 GB free disk space**  
-
-Official Docker docs and beginner guides show how to install Docker Desktop on Windows, macOS, and Linux. [web:52][web:53]
+- **Docker Desktop** (v20.10 or higher)
+  - [Windows/Mac Download](https://www.docker.com/products/docker-desktop/)
+  - [Linux Installation](https://docs.docker.com/engine/install/)
+- **Docker Compose** (v2.0 or higher) - Usually included with Docker Desktop
+- **Git** (for cloning the repository)
+- **4GB RAM** minimum (8GB recommended)
+- **5GB free disk space**
 
 ---
 
-## OPTION 1 – Run From Source with Docker
+## 🚀 Installation & Setup
 
-This option is for you (developer) or any technical user who has the full project code. The main project folder contains PHP source, `Dockerfile`, `docker-compose.yml`, and `carrental.sql`.
+### Method 1: Using Docker (Recommended)
 
-### 🧬 Clone Repository
+#### Step 1: Clone the Repository
 
 ```bash
 git clone https://github.com/chetan080808/car-rental-portal.git
-cd car-rental-portal/carrental
-If the repo/folder name differs, adjust the path accordingly.
-
-🗂 Project Structure
-Inside carrental you should see something like:
-
-text
-carrental/
-├── admin/                 # Admin panel PHP files and assets
-├── assets/                # Front-end CSS, JS, images, fonts
-├── includes/              # Shared PHP includes (config, header, footer, etc.)
-├── Dockerfile             # PHP + Apache image build instructions
-├── docker-compose.yml     # Multi-container configuration
-├── carrental.sql          # MySQL schema + sample data
-├── index.php              # Home page
-├── car-listing.php
-├── vehical-details.php
-├── my-booking.php
-├── my-testimonials.php
-├── post-testimonial.php
-├── contact-us.php
-└── other PHP pages...
-▶️ Start Containers
-From the carrental directory:
-
+cd car-rental-portal
+Step 2: Navigate to Project Directory
 bash
-# Build and start containers in the background
+cd carrental
+Step 3: Build and Start Containers
+bash
+# Build and start all containers
 docker-compose up --build -d
-What this does:
 
-Builds a PHP+Apache image using the Dockerfile
+# View logs (optional)
+docker-compose logs -f
+First-time build takes 5-10 minutes to download images and install dependencies.
 
-Starts:
-
-carrental-web (PHP + Apache)
-
-carrental-db (MySQL 8)
-
-carrental-phpmyadmin (phpMyAdmin)
-
-Creates a network so containers can talk to each other
-
-Imports carrental.sql into MySQL on first run
-
-Give MySQL some time to initialize and import the SQL:
-
+Step 4: Wait for Database Initialization
 bash
-sleep 30    # optional but recommended on first run
+# Wait for MySQL to initialize (30 seconds)
+sleep 30
+
+# Verify containers are running
 docker-compose ps
-You should see all three services with status Up.
+You should see 3 containers with "Up" status:
 
-🌐 Application URLs
-By default:
+carrental-web (PHP/Apache)
 
-User site:
-http://localhost/
+carrental-db (MySQL)
 
-Admin panel:
-http://localhost/admin/
+carrental-phpmyadmin (Database Manager)
 
-phpMyAdmin:
-http://localhost:8081/
+Step 5: Access the Application
+Open your browser and navigate to:
 
-You can change these ports if they conflict with anything else; see the Ports & Configuration section below. [web:66]
-
-🔑 Default Credentials
-User login
-
+Service	URL	Description
+Main Website	http://localhost/	User-facing portal
+Admin Panel	http://localhost/admin/	Admin dashboard
+phpMyAdmin	http://localhost:8081/	Database management
+🔑 Default Login Credentials
+User Account
 text
-Email:    test@gmail.com
+Email: test@gmail.com
 Password: Test@123
-Admin login
-
+Admin Account
 text
 Username: admin
 Password: Test@12345
 phpMyAdmin
-
 text
 Username: root
 Password: rootpassword
-Change these values if you plan to expose the app beyond local development.
+⚠️ Change these credentials in production!
 
-🐳 Useful Docker Commands (Source Setup)
-From the carrental directory:
+📁 Project Structure
+text
+car-rental-portal/
+├── carrental/
+│   ├── admin/                  # Admin panel
+│   │   ├── includes/          # Admin config files
+│   │   ├── img/               # Admin images
+│   │   ├── js/                # Admin JavaScript
+│   │   ├── css/               # Admin stylesheets
+│   │   └── *.php              # Admin pages
+│   ├── assets/                # Frontend assets
+│   │   ├── css/               # Stylesheets
+│   │   ├── js/                # JavaScript files
+│   │   ├── images/            # Images
+│   │   ├── fonts/             # Font files
+│   │   └── switcher/          # Color theme switcher
+│   ├── includes/              # Core includes
+│   │   ├── config.php         # Database configuration
+│   │   ├── header.php         # Header template
+│   │   ├── footer.php         # Footer template
+│   │   └── *.php              # Other includes
+│   ├── Dockerfile             # Docker build instructions
+│   ├── docker-compose.yml     # Multi-container setup
+│   ├── carrental.sql          # Database dump
+│   ├── index.php              # Homepage
+│   └── *.php                  # Other pages
+└── README.md                  # This file
+⚙️ Configuration
+Database Configuration
+Edit includes/config.php and admin/includes/config.php:
 
+php
+<?php 
+define('DB_HOST', getenv('DB_HOST') ?: 'db');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: 'rootpassword');
+define('DB_NAME', getenv('DB_NAME') ?: 'carrental');
+?>
+Environment Variables
+Modify docker-compose.yml to change credentials:
+
+text
+environment:
+  - DB_HOST=db
+  - DB_USER=root
+  - DB_PASS=your_secure_password
+  - DB_NAME=carrental
+Port Configuration
+If ports are already in use, modify in docker-compose.yml:
+
+text
+services:
+  web:
+    ports:
+      - "8080:80"    # Change 8080 to any free port
+  
+  phpmyadmin:
+    ports:
+      - "8082:80"    # Change 8082 to any free port
+Then access at: http://localhost:8080/
+
+🐳 Docker Commands
+Starting the Application
 bash
-# See all services and status
-docker-compose ps
+# Start containers
+docker-compose up -d
 
-# Follow logs for all services
+# Start with rebuild
+docker-compose up --build -d
+
+# View logs
 docker-compose logs -f
 
-# Logs per service
+# View specific service logs
 docker-compose logs web
 docker-compose logs db
-docker-compose logs phpmyadmin
-
+Stopping the Application
+bash
 # Stop containers (data persists)
 docker-compose down
 
-# Stop + remove DB volume (fresh DB next time)
+# Stop and remove volumes (deletes database)
 docker-compose down -v
+Managing Containers
+bash
+# Check running containers
+docker-compose ps
 
 # Restart all services
 docker-compose restart
 
-# Open a shell in the web container
-docker-compose exec web bash
+# Restart specific service
+docker-compose restart web
 
-# Connect to MySQL directly
+# Execute commands in container
+docker-compose exec web bash
+docker-compose exec db mysql -uroot -prootpassword
+Viewing Resource Usage
+bash
+docker stats
+🗄️ Database Management
+Import Database Manually
+bash
+docker-compose exec db mysql -uroot -prootpassword carrental < carrental.sql
+Export Database Backup
+bash
+docker-compose exec db mysqldump -uroot -prootpassword carrental > backup.sql
+Access MySQL CLI
+bash
 docker-compose exec db mysql -uroot -prootpassword carrental
+Example queries:
+
+sql
+-- Show all tables
+SHOW TABLES;
+
+-- Count vehicles
+SELECT COUNT(*) FROM tblvehicles;
+
+-- View all bookings
+SELECT * FROM tblbooking;
+🐛 Troubleshooting
+Issue 1: Port Already in Use
+Error: Bind for 0.0.0.0:80 failed: port is already allocated
+
+Solution:
+
+bash
+# Find what's using the port
+sudo lsof -i :80
+
+# Stop the service (example: Apache)
+sudo systemctl stop apache2
+
+# Or change port in docker-compose.yml
+Issue 2: Containers Won't Start
+bash
+# View error logs
+docker-compose logs
+
+# Remove all containers and volumes
+docker-compose down -v
+
+# Rebuild from scratch
+docker-compose up --build -d
+Issue 3: Database Connection Failed
+Solution:
+
+bash
+# Wait for database to fully initialize
+sleep 30
+
+# Check database is running
+docker-compose exec db mysql -uroot -prootpassword -e "SELECT 1;"
+
+# Restart web container
+docker-compose restart web
+Issue 4: Blank Page or 403 Forbidden
+Solution:
+
+bash
+# Fix permissions
+docker-compose exec web chown -R www-data:www-data /var/www/html
+docker-compose exec web chmod -R 755 /var/www/html
+
+# Restart Apache
+docker-compose restart web
+Issue 5: CSS/JS Not Loading
+Clear browser cache (Ctrl+Shift+R)
+
+Check browser console (F12) for errors
+
+Verify files exist in container:
+
+bash
+docker-compose exec web ls -la /var/www/html/assets/
+🔧 Development
+Enable PHP Error Display
+Edit Dockerfile and add:
+
+text
+RUN echo "display_errors = On" >> /usr/local/etc/php/php.ini && \
+    echo "error_reporting = E_ALL" >> /usr/local/etc/php/php.ini
+Rebuild:
+
+bash
+docker-compose up --build -d
+Live Code Updates
+The project uses volume mounting, so changes to PHP files are reflected immediately without rebuilding.
+
+Adding New PHP Extensions
+Edit Dockerfile:
+
+text
+RUN docker-php-ext-install pdo pdo_mysql mysqli gd zip
+📊 Database Schema
+Main Tables
+Table	Description
+admin	Admin user credentials
+tblbooking	Vehicle booking records
+tblbrands	Car brands (Maruti, BMW, etc.)
+tblcontactusinfo	Business contact information
+tblcontactusquery	Customer inquiries
+tblpages	Static page content
+tblsubscribers	Newsletter subscribers
+tbltestimonial	Customer testimonials
+tblusers	Registered users
+tblvehicles	Vehicle inventory
+🚀 Deployment
+Deploy to AWS EC2
+Launch Ubuntu EC2 instance
+
+Install Docker and Docker Compose
+
+Clone repository
+
+Update security group (ports 80, 443)
+
+Run docker-compose up -d
+
+Configure domain and SSL certificate
+
+Detailed guide: AWS Deployment Guide
+
+Deploy to DigitalOcean
+Similar to AWS, use Docker Droplet or regular Ubuntu droplet with Docker installed.
+
+🤝 Contributing
+Contributions are welcome! Please follow these steps:
+
+Fork the repository
+
+Create a feature branch (git checkout -b feature/AmazingFeature)
+
+Commit your changes (git commit -m 'Add AmazingFeature')
+
+Push to branch (git push origin feature/AmazingFeature)
+
+Open a Pull Request
+
+📝 License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+👨‍💻 Author
+Chetan Pawar
+
+GitHub: @chetan080808
+
+Docker Hub: chetan0808
+
+LinkedIn: Your LinkedIn
+
+🙏 Acknowledgments
+Bootstrap for responsive design
+
+Font Awesome for icons
+
+Docker for containerization
+
+MySQL community
+
+PHP community
+
+📞 Support
+If you encounter any issues or have questions:
+
+Check Troubleshooting section
+
+Open an Issue
+
+Contact: your.email@example.com
+
+🗺️ Roadmap
+ Add payment gateway integration
+
+ Implement email notifications
+
+ Add multi-language support
+
+ Mobile app (React Native)
+
+ Advanced search filters
+
+ Rating and review system
+
+ SMS notifications
+
+ Google Maps integration
+
+
